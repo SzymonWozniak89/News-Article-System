@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    # volumes:
+    #   - ./build/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_DATABASE: "news_articles"
+      MYSQL_USER: "news_articles"
+      MYSQL_PASSWORD: "news_articles"
+      MYSQL_ROOT_PASSWORD: "news_articles"
+      MYSQL_TCP_PORT: 6033
+    ports:
+      - "6033:6033"
