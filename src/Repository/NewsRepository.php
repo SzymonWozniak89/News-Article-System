@@ -21,7 +21,7 @@ final class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
-    public function save(News $news): void 
+    public function save(News $news): void
     {
         $this->getEntityManager()->persist($news);
         $this->getEntityManager()->flush();

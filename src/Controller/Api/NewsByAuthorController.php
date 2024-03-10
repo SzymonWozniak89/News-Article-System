@@ -17,11 +17,12 @@ final class NewsByAuthorController extends AbstractController
     #[Route('/author/{name}', name: 'author_index', methods: ['GET'])]
     public function index(string $name, NewsService $newsService): JsonResponse
     {
-        try{
+        try {
             $news = $newsService->getByAuthor($name);
+
             return $this->json($news, Response::HTTP_OK);
-        } catch(NotFoundHttpException $exception){
+        } catch (NotFoundHttpException $exception) {
             return $this->json($exception->getMessage(), Response::HTTP_NOT_FOUND);
-        }        
+        }
     }
 }

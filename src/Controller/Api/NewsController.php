@@ -17,11 +17,12 @@ final class NewsController extends AbstractController
     #[Route('/{id}', name: 'index', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function index(int $id, NewsService $newsService): JsonResponse
     {
-        try{
+        try {
             $news = $newsService->getById($id);
+
             return $this->json($news, Response::HTTP_OK);
-        } catch(NotFoundHttpException $exception){
+        } catch (NotFoundHttpException $exception) {
             return $this->json($exception->getMessage(), Response::HTTP_NOT_FOUND);
-        }        
+        }
     }
 }

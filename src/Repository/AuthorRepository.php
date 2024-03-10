@@ -34,7 +34,7 @@ final class AuthorRepository extends ServiceEntityRepository
             ORDER BY count(n2.id) DESC
             "
         )->setMaxResults(3);
-    
+
         $query2 = $entityManager->createQuery(
             "SELECT a.name, count(n.id) as number_of_articles 
             FROM App\Entity\News n

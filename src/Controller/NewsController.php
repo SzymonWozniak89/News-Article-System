@@ -27,37 +27,37 @@ final class NewsController extends AbstractController
     #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
     public function add(Request $request, NewsService $newsService): Response
     {
-        $news = new News;
+        $news = new News();
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $newsService->save($news);
             $this->addFlash('success', 'New article added');
+
             return $this->redirectToRoute('news_index');
         }
+
         return $this->render('news/add.html.twig', [
-            'newsForm'=>$form->createView(),
-        ]); 
-    }  
-    
+            'newsForm' => $form->createView(),
+        ]);
+    }
+
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'PUT'])]
     public function editArticle(Request $request, NewsService $newsService, News $news): Response
-    {    
-         $form = $this->createForm(NewsType::class, $news);
-         $form->handleRequest($request);
-            
-         if ($form->isSubmitted() && $form->isValid()) 
-         {
-             $newsService->save($news);
+    {
+        $form = $this->createForm(NewsType::class, $news);
+        $form->handleRequest($request);
 
-             $this->addFlash('success', 'Article updated');
-             
-             return $this->redirectToRoute('news_index');
-         }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newsService->save($news);
 
-         return $this->render('news/edit.html.twig', [
-             'newsForm' => $form->createView()
-         ]);      
-     }
+            $this->addFlash('success', 'Article updated');
+
+            return $this->redirectToRoute('news_index');
+        }
+
+        return $this->render('news/edit.html.twig', [
+            'newsForm' => $form->createView(),
+        ]);
+    }
 }

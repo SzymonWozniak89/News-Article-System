@@ -17,11 +17,12 @@ final class TopAuthorsController extends AbstractController
     #[Route('/top', name: 'index', methods: ['GET'])]
     public function index(AuthorService $authorService): JsonResponse
     {
-        try{
+        try {
             $authors = $authorService->getTop3();
+
             return $this->json($authors, Response::HTTP_OK);
-        } catch(NotFoundHttpException $exception){
+        } catch (NotFoundHttpException $exception) {
             return $this->json($exception->getMessage(), Response::HTTP_NOT_FOUND);
-        }        
+        }
     }
 }

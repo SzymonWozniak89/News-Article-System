@@ -6,9 +6,8 @@ use App\Repository\NewsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Event\PrePersistEventArgs;
-use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -31,7 +30,7 @@ class News implements \JsonSerializable
     #[ORM\JoinTable(name: 'news_authors')]
     #[ORM\JoinColumn(name: 'news_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'news', fetch:'EAGER')]
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'news', fetch: 'EAGER')]
     private Collection $author;
 
     public function __construct()
@@ -117,12 +116,13 @@ class News implements \JsonSerializable
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
-            'author' => $this->getAuthor()->toArray()
+            'author' => $this->getAuthor()->toArray(),
         ];
     }
+
     #[ORM\PrePersist]
     public function prePersist(PrePersistEventArgs $eventArgs)
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
 }
