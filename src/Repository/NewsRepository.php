@@ -20,4 +20,22 @@ final class NewsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, News::class);
     }
+
+    public function save(News $news): void 
+    {
+        $this->getEntityManager()->persist($news);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findByAuthorName($name)
+    {
+        return $this->createQueryBuilder('n')
+            ->orderBy('n.createdAt', 'DESC')
+            ->leftJoin('n.author', 'a')
+            ->andWhere('a.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

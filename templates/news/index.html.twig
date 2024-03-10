@@ -6,11 +6,11 @@
         <table table class="table table-striped caption-top">
           <thead class="table-dark">
             <tr>
-              <th scope="col">L.p.</th>
+              <th scope="col">no.</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <th scope="col">Date</td>
+              <th scope="col">Actions</td>
             </tr>
           </thead>
           <tbody>
@@ -23,8 +23,8 @@
                         {{ author.name }},&nbsp
                     {% endfor %}
                 </td>
-                {# <td><a href="{{ path('app_refueling', {"id": car.getCarId() }) }}" class="btn btn-primary"> Open article </a></td>
-                <td><a href="{{ path('car_edit', {"id": car.getCarId() }) }}" class="btn btn-primary"> Edit </a></td> #}
+                <td>{{ news.createdAt|date('Y-m-d') }}</td>
+                <td><a href="{{ path('news_edit', {"id": news.id }) }}" class="btn btn-outline-dark mt-auto"> Edit </a></td>
             </tr>
             {% endfor %}
           </tbody>

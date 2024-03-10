@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class News implements \JsonSerializable
 {
     #[ORM\Id]
@@ -35,7 +38,6 @@ class News implements \JsonSerializable
     {
         $this->author = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -117,5 +119,10 @@ class News implements \JsonSerializable
             'content' => $this->content,
             'author' => $this->getAuthor()->toArray()
         ];
+    }
+    #[ORM\PrePersist]
+    public function prePersist(PrePersistEventArgs $eventArgs)
+    {
+        $this->createdAt = new DateTimeImmutable();
     }
 }

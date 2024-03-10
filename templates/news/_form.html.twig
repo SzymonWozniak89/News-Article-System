@@ -1,0 +1,30 @@
+{{ form_start(newsForm) }}
+    <div class="form-control bg-light border border-0">
+        {{ form_label(newsForm.title) }}
+        {{ form_widget(newsForm.title) }}
+        <small>{{ form_help(newsForm.title) }}</small>
+        <div class="form-error">
+            {{ form_errors(newsForm.title) }}
+        </div>
+    </div> 
+    </br>
+    <div class="form-control bg-light border border-0">
+        {{ form_label(newsForm.content) }}
+        {{ form_widget(newsForm.content) }}
+        <small>{{ form_help(newsForm.content) }}</small>
+        <div class="form-error">
+            {{ form_errors(newsForm.content) }}
+        </div>
+    </div> 
+    </br>
+    <div class="form-control bg-light border border-0">
+        {{ form_label(newsForm.author) }}
+        {{ form_widget(newsForm.author) }}
+        <small>{{ form_help(newsForm.author) }}</small>
+        <div class="form-error">
+            {{ form_errors(newsForm.author) }}
+        </div>
+    </div>
+    </br>
+{{ form_row(newsForm.submit, { 'attr': {'class' :'btn btn-outline-dark font-weight-bold my-3 py-3' } }) }}
+{{ form_end(newsForm, {render_rest: false}) }}

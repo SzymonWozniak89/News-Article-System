@@ -5,7 +5,10 @@ namespace App\Form;
 use App\Entity\Author;
 use App\Entity\News;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,16 +17,17 @@ class NewsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('content')
-            ->add('createdAt', null, [
-                'widget' => 'single_text'
-            ])
+            ->add('title', TextType::class, ['label'=>'Title', 'required'=>true])
+            ->add('content', TextareaType::class, ['label'=>'Content', 'required'=>true, 'attr'=>['cols'=>'10', 'rows'=>'10']])
             ->add('author', EntityType::class, [
                 'class' => Author::class,
-'choice_label' => 'id',
-'multiple' => true,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'label'=>'Author',
+                'required'=>true
             ])
+            ->add('submit', SubmitType::class, ['label'=>'Save article'])
         ;
     }
 
