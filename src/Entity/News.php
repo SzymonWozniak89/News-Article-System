@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
-class News
+class News implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +28,7 @@ class News
     #[ORM\JoinTable(name: 'news_authors')]
     #[ORM\JoinColumn(name: 'news_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
-    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'news')]
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'news', fetch:'EAGER')]
     private Collection $author;
 
     public function __construct()
@@ -107,5 +107,15 @@ class News
         $this->author->removeElement($author);
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'author' => $this->getAuthor()->toArray()
+        ];
     }
 }

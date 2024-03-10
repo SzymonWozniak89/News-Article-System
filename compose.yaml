@@ -13,3 +13,7 @@ services:
       MYSQL_TCP_PORT: 6033
     ports:
       - "6033:6033"
+    volumes:
+      - news_article_volume:/var/lib/mysql
+volumes:
+  news_article_volume:
