@@ -3,8 +3,8 @@ services:
   mysql:
     container_name: mysql
     image: mysql
-    # volumes:
-    #   - ./build/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+    volumes:
+      - ./news_articles_system.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_DATABASE: "news_articles"
       MYSQL_USER: "news_articles"
@@ -13,7 +13,3 @@ services:
       MYSQL_TCP_PORT: 6033
     ports:
       - "6033:6033"
-    volumes:
-      - news_article_volume:/var/lib/mysql
-volumes:
-  news_article_volume:

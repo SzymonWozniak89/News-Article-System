@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
-#[Route(path: '/api/author', name: 'api_author_', methods: ['GET', 'POST', 'PUT'])]
+#[Route(path: '/api/author', name: 'api_author_', methods: ['GET'])]
 final class TopAuthorsController extends AbstractController
 {
     #[Route('/top', name: 'index', methods: ['GET'])]
