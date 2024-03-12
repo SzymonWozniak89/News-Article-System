@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\News;
 use App\Form\NewsType;
-use App\Service\AuthorService;
 use App\Service\NewsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class NewsController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(NewsService $newsService, AuthorService $authorService): Response
+    public function index(NewsService $newsService): Response
     {
         return $this->render('news/index.html.twig', [
             'newses' => $newsService->getAllNews(),
